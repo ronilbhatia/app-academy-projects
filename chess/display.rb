@@ -20,7 +20,7 @@ class Display
 
   def render
     puts "\n"
-    puts "------------------------------"
+    puts "--------------------------------"
     8.times do |i|
       symbol_arr = []
       @board.grid[i].each_with_index do |piece, j|
@@ -31,8 +31,8 @@ class Display
         end
 
       end
-      puts symbol_arr.join(" | ")
-      puts "------------------------------"
+      puts "| #{symbol_arr.join(" | ")} |"
+      puts "---------------------------------"
     end
   end
 
