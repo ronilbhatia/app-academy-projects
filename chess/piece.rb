@@ -1,30 +1,31 @@
 require 'Singleton'
 require 'colorize'
-class Piece 
-  attr_reader :type, :move_dirs
-  
-  def initialize(type, pos, board)
-    @type = type
-    @pos = pos
-    @board = board
-  end
-end 
+require_relative 'stepping_module'
+require_relative 'sliding_module'
 
-class NullPiece < Piece 
-  include Singleton
-  def initialize
-    @type = "_Null" 
+class Piece
+  attr_reader :type, :move_dirs
+
+  def initialize(type)
+    @type = type
   end
 end
 
-class Pawn < Piece 
+class NullPiece < Piece
+  include Singleton
+  def initialize
+    @type = "Null"
+  end
+end
+
+class Pawn < Piece
   def initialize
     super("Pawn")
   end
-end  
+end
 
 class King < Piece
-  include Stepping 
+  include Stepping
   MOVES = [
     [-1, -1],
     [-1, 1],
@@ -34,43 +35,43 @@ class King < Piece
     [0, -1],
     [1, 0],
     [-1, 0]
-  ] 
+  ]
   def initialize
     super("King")
   end
-end 
+end
 
 class Queen < Piece #King/Knight
   include Sliding
-  
+
   def initialize
     super("Queen")
     @move_dirs = :both
   end
-end 
+end
 
 class Rook < Piece
   include Sliding
-  
+
   def initialize
     super("Rook")
     @move_dirs = :h_v
   end
-  
-end 
 
-class Bishop < Piece 
+end
+
+class Bishop < Piece
   include Sliding
-  
+
   def initialize
     super("Bishop")
     @move_dirs = :diag
   end
-end 
+end
 
-class Knight < Piece 
+class Knight < Piece
   include Stepping
-  
+
   MOVES = [
     [-2, -1],
     [-2, 1],
@@ -80,8 +81,8 @@ class Knight < Piece
     [2, -1],
     [-1, 2],
     [-1, -2]
-  ] 
+  ]
   def initialize
     super("knight")
   end
-end 
+end
