@@ -78,7 +78,7 @@ class Cursor
   def handle_key(key)
     case key 
     when :return 
-      @cursor_pos
+      :move
     when :space
       @cursor_pos
     when :left 
@@ -97,6 +97,6 @@ class Cursor
   def update_pos(diff)
     new_pos = @cursor_pos.dup
     (0..1).each {|i| new_pos[i] = @cursor_pos[i] + diff[i]}
-    @cursor_pos = new_pos if @board.valid_pos?(new_pos)
+    @cursor_pos = new_pos if @board.valid_cursor_pos?(new_pos)
   end
 end
