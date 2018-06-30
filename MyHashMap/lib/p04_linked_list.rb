@@ -23,7 +23,7 @@ end
 
 class LinkedList
   include Enumerable
-  
+
   def initialize
     @head = Node.new("head")
     @tail = Node.new("tail")
@@ -31,7 +31,7 @@ class LinkedList
   end
 
   def [](i)
-    each_with_index { |link, j| return link if i == j }
+      each_with_index { |link, j| return link if i == j }
     nil
   end
 
@@ -49,7 +49,7 @@ class LinkedList
 
   def get(key)
     return nil unless include?(key)
-    
+
     each do |node|
       return node.val if node.key == key
     end
@@ -58,11 +58,11 @@ class LinkedList
 
   def include?(key)
     return false if empty?
-    
+
     each do |node|
       return true if node.key == key
     end
-    
+
     false
   end
 
@@ -70,15 +70,15 @@ class LinkedList
     new_node = Node.new(key, val)
     new_node.prev = @tail.prev
     new_node.next = @tail
-    
+
     @tail.prev.next = new_node
     @tail.prev = new_node
   end
-  
+
 
   def update(key, val)
     return nil if empty?
-    
+
     each do |node|
       node.val = val if node.key == key
     end
@@ -92,7 +92,7 @@ class LinkedList
 
   def each(&prc)
     current_node = @head.next
-    
+
     until current_node == @tail
       prc.call(current_node)
       current_node = current_node.next

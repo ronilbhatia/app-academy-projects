@@ -2,7 +2,7 @@ require_relative 'p04_linked_list'
 
 class HashMap
   include Enumerable
-  
+
   attr_reader :count, :store
 
   def initialize(num_buckets = 8)
@@ -19,7 +19,7 @@ class HashMap
       @count += 1
       resize! if @count == num_buckets
       bucket(key).append(key, val)
-    else 
+    else
       bucket(key).update(key, val)
     end
   end
@@ -30,7 +30,7 @@ class HashMap
 
   def delete(key)
     if include?(key)
-      bucket(key).remove(key) 
+      bucket(key).remove(key)
       @count -= 1
     end
   end
@@ -41,7 +41,7 @@ class HashMap
         prc.call(node.key, node.val)
       end
     end
-    
+
   end
 
   # uncomment when you have Enumerable included
@@ -62,12 +62,8 @@ class HashMap
   end
 
   def resize!
-    new_buckets = num_buckets * 2
-      
-    temp = HashMap.new(new_buckets)
-    each do |key, val|
-      temp.set(key, val)
-    end
+    temp = HashMap.new(num_buckets * 2)
+    each { |key, val| temp.set(key, val) }
     @store = temp.store
   end
 
@@ -75,5 +71,5 @@ class HashMap
     # optional but useful; return the bucket corresponding to `key`
     @store[key.hash % num_buckets]
   end
-  
+
 end
