@@ -18,6 +18,8 @@ CREATE TABLE questions (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+DROP TABLE if exists question_follows;
+
 CREATE TABLE question_follows (
   question_id INTEGER NOT NULL,
   user_id INTEGER NOT NULL,
@@ -26,16 +28,20 @@ CREATE TABLE question_follows (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+DROP TABLE IF EXISTS replies;
+
 CREATE TABLE replies (
   id INTEGER PRIMARY KEY,
   body TEXT NOT NULL,
-  parent INTEGER,
+  parent_id INTEGER,
   question_id INTEGER NOT NULL,
   user_id INTEGER NOT NULL,
   
   FOREIGN KEY (question_id) REFERENCES questions(id),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+DROP TABLE IF EXISTS question_likes;
 
 CREATE TABLE question_likes (
   user_id INTEGER NOT NULL,
@@ -55,7 +61,8 @@ INSERT INTO
   questions (title, body, user_id)
 VALUES
   ('What is life?', 'Tell me the meaning of life', 1), 
-  ('Why?', 'why', 2);
+  ('Why?', 'why', 2),
+  ('How?', 'how', 2);
 
 INSERT INTO 
   question_follows (user_id, question_id)
@@ -64,7 +71,7 @@ VALUES
   (2, 1);
   
 INSERT INTO 
-  replies (body, parent, question_id, user_id)
+  replies (body, parent_id, question_id, user_id)
 VALUES
   ('42', NULL, 1, 2), 
   ('Because', NULL, 2, 1),
@@ -73,5 +80,13 @@ VALUES
 INSERT INTO 
   question_likes (user_id, question_id)
 VALUES
-  (1, 2);
+  (1, 2),
+  (1, 2),
+  (1, 2),
+  (1, 2),
+  (2, 1),
+  (2, 1),
+  (2, 2),
+  (2, 2),
+  (2, 2);
 
