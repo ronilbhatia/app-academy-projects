@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+class CLI
+  def get_input
+    puts "What is your e-mail?"
+    email = gets.chomp
+    user = User.find_by(email: email)
+    
+    if user.nil?
+      User.create(email: email)
+    else
+      @user_id = user.id
+    end
+  end
+  
+  def get_response
+    puts "If you want to visit a shortened URL, enter 1, or if you want to create one, enter 2."
+    response = gets.chomp.to_i
+    
+    if response == 1
+      p ShortenedURL.all.map { |url| url.short_url }
+      puts "Which URL would you like to visit. Input a number"
+      url = gets.chomp.to_i
+      return Launchy.open(ShortenedURL.find(url).long_url)
+    elsif response == 2
+      puts "Enter a URL that you would like to shorten"
+      url = gets.chomp.to_i
+      p ShortenedURL.random_code
+    end         
+  end
+  
+  def run
+    get_input
+    get_response
+  end
+  
+  def initialize
+  end 
+end
+
+c = CLI.new
+c.run
