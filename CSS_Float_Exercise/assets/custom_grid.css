@@ -1,0 +1,7 @@
+/* PUT FLUID GRID CODE HERE */
+.fluid-grid > li {
+  float: left;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
