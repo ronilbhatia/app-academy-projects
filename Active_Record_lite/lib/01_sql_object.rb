@@ -16,17 +16,17 @@ class SQLObject
         1
     SQL
     @columns ||= (DBConnection.execute2(heredoc).first.map(&:to_sym))
-    
+
   end
 
   def self.finalize!
     columns.each do |column|
-      
+
       define_method(column) { attributes[column] }
       define_method("#{column}=") { |value| attributes[column] = value }
-      
+
     end
-    
+
   end
 
   def self.table_name=(table_name)
@@ -45,10 +45,10 @@ class SQLObject
     data = DBConnection.execute (<<-SQL)
       SELECT
         #{table_name}.*
-      FROM 
+      FROM
         #{table_name}
     SQL
-    
+
     data
     # data.map { |dat| self.new(dat) }
     # debugger
@@ -58,7 +58,7 @@ class SQLObject
   def self.parse_all(results)
     # ...
     # debugger
-    results.map do |dat| 
+    results.map do |dat|
       # dat[:id] = idx + 1
       self.new(dat)
     end
@@ -67,11 +67,11 @@ class SQLObject
   def self.find(id)
     # ...
     data = DBConnection.execute (<<-SQL)
-    SELECT 
+    SELECT
       *
-    FROM 
+    FROM
       #{table_name}
-    WHERE 
+    WHERE
       id = #{id}
     SQL
     return nil if data.empty?
@@ -83,11 +83,11 @@ class SQLObject
     params.each do |att, val|
       unless self.class.columns.include?(att.to_sym)
         raise "unknown attribute '#{att}'"
-      else 
-        self.send("#{att}=", val) 
-      end 
-      
-        
+      else
+        self.send("#{att}=", val)
+      end
+
+
     end
   end
 
@@ -105,7 +105,7 @@ class SQLObject
   def insert
     # ...
     col_names = self.class.columns.join(", ")
-    question_mark = ["?"] * self.class.columns.length 
+    question_mark = ["?"] * self.class.columns.length
     question_marks = question_mark.join(", ")
     DBConnection.execute(<<-SQL, *attribute_values)
       INSERT INTO
@@ -119,11 +119,25 @@ class SQLObject
 
   def update
     # ...
+    col_names = self.class.columns
+    question_mark = ["?"] * self.class.columns.length
+    question_marks = question_mark.join(", ")
+
+    col_string = col_names.map { |col| "#{col} = ?" }.join(", ")
+    DBConnection.execute(<<-SQL, *attribute_values)
+      UPDATE
+        #{self.class.table_name}
+      SET
+        #{col_string}
+      WHERE
+        id = #{self.id}
+    SQL
   end
 
   def save
     # ...
+    id.nil? ? insert : update
   end
-  
-  # self.class.superclass.finalize!
+
+
 end

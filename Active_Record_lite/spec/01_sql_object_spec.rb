@@ -226,6 +226,7 @@ describe SQLObject do
 
     describe '#save' do
       it 'calls #insert when record does not exist' do
+        # debugger
         human = Human.new
         expect(human).to receive(:insert)
         human.save
