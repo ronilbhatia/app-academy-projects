@@ -9,6 +9,10 @@
 ActiveRecord::Base.transaction do
   User.destroy_all
 
-  User.create!(name: "Ronil", email: "ronil@gmail.com")
-  User.create!(name: "Zaniar", email: "zaniar@gmail.com")
+  ronil = User.create!(username: "ronil")
+  zaniar = User.create!(username: "zaniar")
+
+  Artwork.create!(title: 'Untitled1', artist_id: ronil.id, image_url: 'ronil.me')
+  Artwork.create!(title: 'Untitled1', artist_id: zaniar.id, image_url: 'zaniar.me')
+  Artwork.create!(title: 'Nice site', artist_id: ronil.id, image_url: 'google.com')
 end
