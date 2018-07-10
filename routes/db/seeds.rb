@@ -8,6 +8,8 @@
 
 ActiveRecord::Base.transaction do
   User.destroy_all
+  Artwork.destroy_all
+  ArtworkShare.destroy_all
 
   ronil = User.create!(username: "ronil")
   zaniar = User.create!(username: "zaniar")
