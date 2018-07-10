@@ -14,9 +14,6 @@ class UsersController < ApplicationController
 
   end
 
-  def user_params
-    params.require(:user).permit([:name, :email])
-  end
 
   def show
     @user = User.find(params[:id])
@@ -26,8 +23,7 @@ class UsersController < ApplicationController
   def update
     if User.exists?(params[:id])
       @user = User.find(params[:id])
-      @user.update(user_params)
-      render json: @user, status: 201
+      modify_user(:update)
     else
       render plain: 'User does not exist', status: 404
     end
@@ -36,11 +32,29 @@ class UsersController < ApplicationController
   def destroy
     if User.exists?(params[:id])
       @user = User.find(params[:id])
-      @user.destroy
-      # render plain: 'User destroyed'
-      render json: ['User destroyed:', @user], status: 200
+
+      if @user.destroy
+       render json: ["destroy successful", @user], status: 201
+      else
+       render json: @user.errors.full_messages, status: 422
+      end
+
     else
       render plain: 'User does not exist', status: 404
     end
+  end
+end
+
+private
+
+def user_params
+  params.require(:user).permit([:username])
+end
+
+def modify_user(mod)
+  if @user.send(mod, user_params)
+   render json: ["#{mod} successful", @user], status: 201
+  else
+   render json: @user.errors.full_messages, status: 422
   end
 end

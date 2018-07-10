@@ -12,7 +12,11 @@ ActiveRecord::Base.transaction do
   ronil = User.create!(username: "ronil")
   zaniar = User.create!(username: "zaniar")
 
-  Artwork.create!(title: 'Untitled1', artist_id: ronil.id, image_url: 'ronil.me')
-  Artwork.create!(title: 'Untitled1', artist_id: zaniar.id, image_url: 'zaniar.me')
-  Artwork.create!(title: 'Nice site', artist_id: ronil.id, image_url: 'google.com')
+  r1 = Artwork.create!(title: 'Untitled1', artist_id: ronil.id, image_url: 'ronil.me')
+  z1 = Artwork.create!(title: 'Untitled1', artist_id: zaniar.id, image_url: 'zaniar.me')
+  r2 = Artwork.create!(title: 'Nice site', artist_id: ronil.id, image_url: 'google.com')
+
+  ArtworkShare.create!(artwork_id: r1.id, viewer_id: zaniar.id)
+  ArtworkShare.create!(artwork_id: r2.id, viewer_id: zaniar.id)
+  ArtworkShare.create!(artwork_id: z1.id, viewer_id: ronil.id)
 end
