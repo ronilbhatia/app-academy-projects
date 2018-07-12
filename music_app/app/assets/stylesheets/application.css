@@ -29,3 +29,7 @@
    background-color: antiquewhite;
    border-radius: 10px;
  }
+
+ .button {
+   float: left;
+ }

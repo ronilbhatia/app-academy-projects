@@ -1,0 +1,11 @@
+<%= @band.name %>
+
+<div>
+  <a href="<%= edit_band_url %>">Edit Band</a>
+
+  <form action="<%= band_url(@band) %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Band">
+    <%= auth_token %>
+  </form>
+</div>
