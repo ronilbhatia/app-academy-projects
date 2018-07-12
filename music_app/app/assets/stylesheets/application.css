@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+ h1 {
+   font-style: oblique;
+   font-family: fantasy;
+   color: blue;
+   font-variant: small-caps;
+ }
+
+ .status {
+   display: flex;
+ }
+
+ a {
+   background-color: antiquewhite;
+   border-radius: 10px;
+ }
