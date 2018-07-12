@@ -16,6 +16,7 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
+    @cat.user_id = current_user.id
     if @cat.save
       redirect_to cat_url(@cat)
     else
@@ -24,6 +25,7 @@ class CatsController < ApplicationController
     end
   end
 
+  before_action :verify_owner
   def edit
     @cat = Cat.find(params[:id])
     render :edit
@@ -44,4 +46,16 @@ class CatsController < ApplicationController
   def cat_params
     params.require(:cat).permit(:age, :birth_date, :color, :description, :name, :sex)
   end
+  
+  def verify_owner
+    unless current_user.id == @cat.user_id
+      flash[:error] = "You do not own this cat!!!"
+      redirect_to cats_url
+    end 
+  end
 end
+
+
+
+
+
