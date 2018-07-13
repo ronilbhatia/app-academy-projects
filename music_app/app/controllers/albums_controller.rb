@@ -7,7 +7,6 @@ class AlbumsController < ApplicationController
   end
 
   def create
-    debugger
     @album = Album.new(album_params.except(:band))
     @album.band_id = album_params[:band].to_i
     if @album.save
@@ -39,7 +38,7 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
-    @album = Band.find(params[:id])
+    @album = Album.find(params[:id])
     @band = Band.find(@album.band_id)
     @album.destroy
     redirect_to band_url(@band)

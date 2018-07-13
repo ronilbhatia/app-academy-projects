@@ -13,16 +13,17 @@
   <body>
     <h1>Music App</h1>
     <% if current_user %>
-      <h2 class='login-status'>Hello, <%= current_user.email %>, you are signed in!</h2>
+      <a class="button" href="<%= bands_url %>">Take me Home</a>
+      <h2 class='status'>Hello, <%= current_user.email %>, you are signed in!</h2>
       <form action="<%= session_url %>" method="post">
         <input type="hidden" name="_method" value="delete">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-        <input class='login-status' type="submit" value="Log Out">
+        <input class='button' type="submit" value="Log Out">
       </form>
       <br>
       <% else %>
-      <a class='login-status' href="<%= new_user_url %>">Sign Up!</a>
-      <a class='login-status' href="<%= new_session_url %>">Log In!</a>
+      <a class='button' href="<%= new_user_url %>">Sign Up!</a>
+      <a class='button' href="<%= new_session_url %>">Log In!</a>
       <br>
       <% end %>
     <%= yield %>

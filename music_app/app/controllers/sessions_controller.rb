@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     # debugger
     unless @user.nil?
       login!(@user)
-      redirect_to user_url(@user)
+      redirect_to bands_url
     else
       flash[:errors] = "Invalid Credentials - please try again"
       redirect_to new_session_url

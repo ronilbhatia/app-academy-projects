@@ -1,5 +1,6 @@
 <%= @album.title %>
 
+<br><br>
 <a href="<%= edit_album_url %>">Edit Album</a>
 <a href="<%= band_url(@band) %>">Back to <%= @band.name %></a>
 <form action="<%= album_url(@album) %>" method="post">
