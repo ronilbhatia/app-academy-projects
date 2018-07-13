@@ -10,6 +10,14 @@
 #
 
 class Goal < ApplicationRecord
-  validates :title, :user_id, presence: true
+  validates :title, :user_id, :completed, presence: true
+  after_initialize :set_completed
   
+  def set_completed
+    self.completed = 'N'
+  end
+  
+  def complete_goal
+    self.completed = 'Y'
+  end
 end

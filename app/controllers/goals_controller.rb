@@ -24,7 +24,8 @@ class GoalsController < ApplicationController
   end
   
   def edit
-    
+    @goal = Goal.find(params[:id])
+    rener :edit
   end
   
   def update
