@@ -13,7 +13,7 @@
 // }
 
 .language-nav {
-	position: relative;
+	position: absolute;
   // justify-content: center;
 	top: -15px;
 	// left: calc(50% - (177.78px/2));
@@ -30,7 +30,7 @@
 	font-family: $sans-serif;
 	font-size: 10px;
 	color: $dark-gray;
-  
+
 }
 
 .language-nav li:first-child {
@@ -77,7 +77,7 @@
 }
 
 .masthead-links a,
-.masthead-links button, 
+.masthead-links button,
 .masthead-links time {
 	margin-right: 10px;
 }
