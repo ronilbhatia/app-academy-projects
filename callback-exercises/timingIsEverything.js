@@ -33,7 +33,7 @@ class Clock {
       this.hours = 0;
     } 
     
-    this.printTime();
+    // this.printTime ();
   }
 }
  const clock = new Clock();
