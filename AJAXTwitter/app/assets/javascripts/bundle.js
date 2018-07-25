@@ -86,14 +86,113 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/api_util.js":
+/*!******************************!*\
+  !*** ./frontend/api_util.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+const APIUtil = {
+  followUser: id => {
+    return $.ajax({
+      method: 'POST',
+      url: `/users/${id}/follow`,
+      dataType: 'json'
+    });
+  },
+  
+  unfollowUser: id => {
+    return $.ajax({
+      method: 'DELETE',
+      url: `/users/${id}/follow`,
+      dataType: 'json'
+    });
+  }
+};
+
+module.exports = APIUtil;
+
+/***/ }),
+
+/***/ "./frontend/follow_toggle.js":
+/*!***********************************!*\
+  !*** ./frontend/follow_toggle.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const APIUtil = __webpack_require__(/*! ./api_util.js */ "./frontend/api_util.js");
+
+class FollowToggle {
+  constructor ($el) {
+    this.userId = $el.data('user-id');
+    this.followState = $el.data('initial-follow-state');
+    this.$el = $el;
+    this.render();
+    $el.on('click', this.handleClick.bind(this));
+  }
+  
+  render () {
+    if (this.followState) {
+      this.$el.text("Unfollow");
+    } else {
+      this.$el.text("Follow");
+    }
+    this.enableButton();
+  }
+  
+  handleClick (e) {
+    e.preventDefault();
+    this.disableButton();
+    const followPromise = () => { 
+      if (this.followState) {
+        return APIUtil.unfollowUser(this.userId);
+      } else {
+        return APIUtil.followUser(this.userId);
+      }
+    };
+    
+    followPromise().then(this.toggle.bind(this));
+  }
+  
+  toggle () {
+    this.followState = !this.followState;
+    this.render();
+  }
+  
+  disableButton() {
+    this.$el.prop("disabled", true);
+  }
+  
+  enableButton() {
+    this.$el.prop("disabled", false);
+  }
+}
+
+
+module.exports = FollowToggle;
+
+/***/ }),
+
 /***/ "./frontend/twitter.js":
 /*!*****************************!*\
   !*** ./frontend/twitter.js ***!
   \*****************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+const FollowToggle = __webpack_require__(/*! ./follow_toggle.js */ "./frontend/follow_toggle.js");
 
+$( () => {
+  const $buttons = $("button");
+  const buttons = [];
+  
+  $buttons.each( (i, button) => {
+    let currButton = new FollowToggle($(button));
+    buttons.push(currButton);
+  });
+});
 
 /***/ })
 
