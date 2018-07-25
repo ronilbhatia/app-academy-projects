@@ -108,6 +108,17 @@ const APIUtil = {
       url: `/users/${id}/follow`,
       dataType: 'json'
     });
+  },
+  
+  searchUsers: (queryVal, success) => {
+    return $.ajax({
+      url: '/users/search',
+      data: {
+        'query': queryVal
+      },
+      success: success,
+      dataType: 'json'
+    });
   }
 };
 
@@ -125,12 +136,13 @@ module.exports = APIUtil;
 const APIUtil = __webpack_require__(/*! ./api_util.js */ "./frontend/api_util.js");
 
 class FollowToggle {
-  constructor ($el) {
-    this.userId = $el.data('user-id');
-    this.followState = $el.data('initial-follow-state');
+  constructor ($el, options) {
+    this.userId = $el.data('user-id') || options.userId;
+    this.followState = $el.data('initial-follow-state') || options.initialFollowState;
     this.$el = $el;
     this.render();
     $el.on('click', this.handleClick.bind(this));
+     // || $('<button type="button" class="follow-toggle" name="follow"></button>' );
   }
   
   render () {
@@ -183,16 +195,65 @@ module.exports = FollowToggle;
 /***/ (function(module, exports, __webpack_require__) {
 
 const FollowToggle = __webpack_require__(/*! ./follow_toggle.js */ "./frontend/follow_toggle.js");
+const UsersSearch = __webpack_require__(/*! ./users_search.js */ "./frontend/users_search.js");
 
 $( () => {
   const $buttons = $("button");
   const buttons = [];
+  
+  const $search = $('.users-search');
+  
+  new UsersSearch($search);
   
   $buttons.each( (i, button) => {
     let currButton = new FollowToggle($(button));
     buttons.push(currButton);
   });
 });
+
+/***/ }),
+
+/***/ "./frontend/users_search.js":
+/*!**********************************!*\
+  !*** ./frontend/users_search.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const APIUtil = __webpack_require__(/*! ./api_util.js */ "./frontend/api_util.js");
+const FollowToggle = __webpack_require__(/*! ./follow_toggle.js */ "./frontend/follow_toggle.js");
+
+class UsersSearch {
+  constructor($el) {
+    this.$el = $el;
+    this.$input = $el.find("input");
+    this.$ul = $el.find("ul");
+    this.$input.on('keyup', this.handleInput.bind(this));
+  }
+  
+  handleInput(e) {
+    
+    APIUtil.searchUsers(this.$input.val(), foundUsers => {
+      $('.users').empty();
+      
+      foundUsers.forEach( user => {
+        const $li = $(`<li><a href='/users/${user.id}'>${user.username}</a></li>`);
+        const $button = $('<button type="button" class="follow-toggle" name="follow"></button>');
+        $li.append($button);
+        
+        new FollowToggle($button, {
+          'userId': user.id,
+          'initialFollowState': user.followed
+        });
+        
+        
+        $('.users').append($li);
+      });
+    });  
+ 
+  }    
+}      
+module.exports = UsersSearch;
 
 /***/ })
 
