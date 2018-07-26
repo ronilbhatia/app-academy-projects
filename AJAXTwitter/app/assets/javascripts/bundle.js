@@ -119,6 +119,16 @@ const APIUtil = {
       success: success,
       dataType: 'json'
     });
+  },
+  
+  createTweet: (data, success) => {
+    return $.ajax({
+      url: '/tweets',
+      method: 'POST',
+      data,
+      dataType: 'json',
+      success
+    });
   }
 };
 
@@ -187,6 +197,37 @@ module.exports = FollowToggle;
 
 /***/ }),
 
+/***/ "./frontend/tweet_compose.js":
+/*!***********************************!*\
+  !*** ./frontend/tweet_compose.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const APIUtil = __webpack_require__(/*! ./api_util.js */ "./frontend/api_util.js");
+
+class TweetCompose {
+  constructor($el) {
+    this.$el = $el;
+    this.$content = $el.find($("textarea"));
+    this.$mentions = $el.find($("select"));
+    this.$el.on('submit', this.submit.bind(this));
+  }
+  
+  submit(e) {
+    e.preventDefault();
+    
+    let data = this.$el.serializeJSON();
+    APIUtil.createTweet(data, () => {  
+      console.log("success");
+    });
+  }
+}
+
+module.exports = TweetCompose;
+
+/***/ }),
+
 /***/ "./frontend/twitter.js":
 /*!*****************************!*\
   !*** ./frontend/twitter.js ***!
@@ -196,19 +237,22 @@ module.exports = FollowToggle;
 
 const FollowToggle = __webpack_require__(/*! ./follow_toggle.js */ "./frontend/follow_toggle.js");
 const UsersSearch = __webpack_require__(/*! ./users_search.js */ "./frontend/users_search.js");
+const TweetCompose = __webpack_require__(/*! ./tweet_compose.js */ "./frontend/tweet_compose.js");
 
 $( () => {
   const $buttons = $("button");
   const buttons = [];
-  
-  const $search = $('.users-search');
-  
-  new UsersSearch($search);
-  
   $buttons.each( (i, button) => {
     let currButton = new FollowToggle($(button));
     buttons.push(currButton);
   });
+  
+  const $search = $('.users-search');
+  new UsersSearch($search);
+  
+  const $tweet = $('.tweet-compose');
+  new TweetCompose($tweet);
+  
 });
 
 /***/ }),
