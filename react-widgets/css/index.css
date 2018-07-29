@@ -3,6 +3,7 @@ body {
 }
 
 h1 {
+  margin-bottom: 10px;
   font-size: 30px;
   color: black;
   font-weight: 700;
@@ -11,7 +12,7 @@ h1 {
 
 .date-time {
   padding: 15px;
-  margin: 10px 0;
+  margin: 10px 0 20px 0;
   display: block;
   background: orange;
   border: 2px solid black;
@@ -24,4 +25,74 @@ h1 {
   color: white;
   font-family: 'Orbitron', sans-serif;
   font-size: 28px;
+}
+
+.tabs {
+  margin: 30px;
+  display: inline-block;
+}
+
+.tab-header {
+  margin-top: 5px;
+  display: flex;
+
+}
+
+.tab-title {
+  padding: 2px 15px;
+  font-size: 20px;
+  color: black;
+  font-weight: lighter;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  border-top-left-radius: 25%;
+  border-top-right-radius: 25%;
+  background: lightblue;
+  cursor: pointer;
+}
+
+.tab-title:nth-child(3) {
+  border-right: 2px solid black;
+}
+
+.tab-content {
+  padding: 80px 15px;
+  background: lightblue;
+  font-size: 20px;
+  font-family: arial;
+  color: white;
+  border-right: 2px solid black;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  display: flex;
+  justify-content: center;
+}
+
+.selected {
+  border-bottom: none;
+  font-weight: 700;
+}
+
+.city-weather {
+  padding: 15px;
+  margin: 10px 0;
+  display: block;
+  justify-content: center;
+  background: lightgreen;
+  border: 2px solid black;
+}
+
+.hidden {
+  display: none;
+}
+
+.weather-attr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  padding: 5px;
+  width: 100%;
+  /* margin: auto; */
 }
