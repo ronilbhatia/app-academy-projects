@@ -11,23 +11,50 @@ class Weather extends React.Component {
   }
 
   componentDidMount() {
-    // debugger
-    // navigator.geolocation.getCurrentPosition( position => {
-    //   this.getWeather(position.coords.latitude, position.coords.longitude);
-    // });
-    this.getWeather(1, 2);
+    let that = this;
+    navigator.geolocation.getCurrentPosition( function(position) {
+      // debugger
+      that.getWeather(position.coords.latitude, position.coords.longitude);
+    });
+    // this.getWeather(1, 2);
+    // function geoSuccess(position) {
+    //   const long = position.coords.longitude;
+    //   const lat = position.coords.latitude;
+    //   console.log("SUCCESS", lat, long);
+    //   that.getWeather(lat, long);
+    // }
+    //
+    // function errorCallback(error) {
+    //   alert('ERROR(' + error.code + '): ' + error.message);
+    // }
+    //
+    // var opt = {
+    //   enableHighAccuracy: true,
+    //   maximumAge        : 30000,
+    //   timeout           : 27000
+    // };
+    //
+    // navigator.geolocation.getCurrentPosition(geoSuccess, errorCallback, opt);
+
   }
 
   getWeather(lat, lon) {
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
-      const response = JSON.parse(xhr.response);
-      const location = response.name;
-      let temperature = Math.round(((response.main.temp - 273) * (9/5) + 32) * 10)/10;
-      temperature = temperature.toString() + ' degrees';
-      this.setState({location, temperature});
+      if (xhr.readyState > 2) {
+        debugger
+        const response = JSON.parse(xhr.response);
+        const location = response.name;
+        let temperature = Math.round(((response.main.temp - 273) * (9/5) + 32) * 10)/10;
+        temperature = temperature.toString() + ' degrees';
+        this.setState({location, temperature});
+      }
     };
-    xhr.open('GET', `http://api.openweathermap.org/data/2.5/weather?lat=15.3525&lon=120.832703&APPID=4c29cf6c10d012cfedd562ba56ba0a1c`);
+    // lat = 15.3525;
+    // lon = 120.832703;
+    let url = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=4c29cf6c10d012cfedd562ba56ba0a1c`
+    url = `http://` + url;
+    xhr.open('GET', url);
     xhr.send();
   }
 
