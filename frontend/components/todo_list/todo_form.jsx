@@ -8,20 +8,27 @@ class TodoForm extends React.Component {
       body: ""
     };
 
-    this.updateTitle = this.updateTitle.bind(this);
-    this.updateBody = this.updateBody.bind(this);
+    // this.updateTitle = this.updateTitle.bind(this);
+    // this.updateBody = this.updateBody.bind(this);
     this.addTodo = this.addTodo.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  updateTitle(e) {
-    this.setState( {title: e.target.value} );
+  // updateTitle(e) {
+  //   this.setState( {title: e.target.value} );
+  // }
+  //
+  // updateBody(e) {
+  //   this.setState( {body: e.target.value} );
+  // }
+  handleChange(field) {
+    return (e) => {
+      this.setState({ [field]: e.target.value });
+    };
   }
 
-  updateBody(e) {
-    this.setState( {body: e.target.value} );
-  }
-
-  addTodo() {
+  addTodo(e) {
+    e.preventDefault();
     let newTodo = {
       id: new Date().getTime(),
       title: this.state.title,
@@ -33,11 +40,11 @@ class TodoForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <input type="text" value={this.state.title} onChange={this.updateTitle}></input>
-        <input type="text" value={this.state.body} onChange={this.updateBody}></input>
-        <button onClick={this.addTodo}>Add Todo</button>
-      </div>
+      <form onSubmit={this.addTodo}>
+        <input type="text" value={this.state.title} onChange={this.handleChange("title")} />
+        <input type="text" value={this.state.body} onChange={this.handleChange("body")} />
+        <input type="submit" value="Add Todo" />
+      </form>
     );
   }
 }
