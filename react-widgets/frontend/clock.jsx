@@ -11,7 +11,7 @@ class Clock extends React.Component {
 
   tick() {
     const time = new Date();
-    this.setState( {time: new Date()} );
+    this.setState({ time });
   }
 
   componentDidMount() {
@@ -41,7 +41,6 @@ class Clock extends React.Component {
           </div>
         </div>
       </div>
-
     );
   }
 

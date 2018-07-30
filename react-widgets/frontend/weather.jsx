@@ -13,7 +13,6 @@ class Weather extends React.Component {
   componentDidMount() {
     let that = this;
     navigator.geolocation.getCurrentPosition( function(position) {
-      // debugger
       that.getWeather(position.coords.latitude, position.coords.longitude);
     });
     // this.getWeather(1, 2);
@@ -42,16 +41,14 @@ class Weather extends React.Component {
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
       if (xhr.readyState > 2) {
-        debugger
         const response = JSON.parse(xhr.response);
         const location = response.name;
+        debugger;
         let temperature = Math.round(((response.main.temp - 273) * (9/5) + 32) * 10)/10;
         temperature = temperature.toString() + ' degrees';
         this.setState({location, temperature});
       }
     };
-    // lat = 15.3525;
-    // lon = 120.832703;
     let url = `api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=4c29cf6c10d012cfedd562ba56ba0a1c`
     url = `http://` + url;
     xhr.open('GET', url);
