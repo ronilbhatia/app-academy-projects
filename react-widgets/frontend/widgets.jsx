@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Clock from './clock';
 import Weather from './weather';
 import Tabs from './tabs';
+import Autocomplete from './autocomplete';
 
 const panes = [
   {
@@ -19,13 +20,18 @@ const panes = [
   }
 ];
 
+const names = ["Abba", "Barney", "Barbara", "Jeff", "Jenny", "Sarah", "Sally", "Xander"];
+
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("root");
   ReactDOM.render(
     <div>
       <Clock />
       <Weather />
-      <Tabs tabs={panes}/>
+      <div className="interactive">
+        <Tabs tabs={panes}/>
+        <Autocomplete names={names}/>
+      </div>
     </div>, root
   );
 });
