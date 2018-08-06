@@ -354,7 +354,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    currentUser: state.session.currentUser
+    currentUser: state.entities.users[state.session.id]
   };
 };
 
@@ -567,7 +567,7 @@ Object.defineProperty(exports, "__esModule", {
 var _session_actions = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 
 var _nullSession = {
-  currentUser: null
+  id: null
 };
 
 exports.default = function () {
@@ -577,7 +577,7 @@ exports.default = function () {
   Object.freeze(state);
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
-      return Object.assign({}, { currentUser: action.user });
+      return Object.assign({}, { id: action.user.id });
     case _session_actions.LOGOUT_CURRENT_USER:
       return _nullSession;
     default:

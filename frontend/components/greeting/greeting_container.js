@@ -1,12 +1,13 @@
 import Greeting from './greeting';
 import {connect} from 'react-redux';
-import {logout} from '../../actions/session_actions';
+import {login, logout} from '../../actions/session_actions';
+
 const mapStateToProps = state => ({
-  currentUser: state.session.currentUser
+  currentUser: state.entities.users[state.session.id]
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: ()=> dispatch(logout())
+  logout: () => dispatch(logout())
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Greeting);
