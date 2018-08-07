@@ -823,7 +823,7 @@ var _nullSession = {
 };
 
 exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _nullSession;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { id: null };
   var action = arguments[1];
 
   Object.freeze(state);
