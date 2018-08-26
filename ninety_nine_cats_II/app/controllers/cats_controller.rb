@@ -1,4 +1,6 @@
 class CatsController < ApplicationController
+  before_action :verify_owner, only: [:edit, :update]
+
   def index
     @cats = Cat.all
     render :index
@@ -25,7 +27,6 @@ class CatsController < ApplicationController
     end
   end
 
-  before_action :verify_owner
   def edit
     @cat = Cat.find(params[:id])
     render :edit
@@ -46,16 +47,11 @@ class CatsController < ApplicationController
   def cat_params
     params.require(:cat).permit(:age, :birth_date, :color, :description, :name, :sex)
   end
-  
+
   def verify_owner
-    unless current_user.id == @cat.user_id
+    unless current_user.cats.include?()
       flash[:error] = "You do not own this cat!!!"
       redirect_to cats_url
-    end 
+    end
   end
 end
-
-
-
-
-
