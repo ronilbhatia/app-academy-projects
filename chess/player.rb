@@ -1,13 +1,13 @@
 require 'byebug'
 class HumanPlayer
-  
+
   def initialize(color, display)
     @color = color
     @display = display
   end
-  
+
   def make_move(board)
-    moved = nil 
+    moved = nil
     until moved == :move
       @display.render
       moved = @display.cursor.get_input

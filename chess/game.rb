@@ -3,7 +3,7 @@ require_relative 'player.rb'
 
 class Game
   attr_reader :board, :display, :player1, :player2, :current_player
-  
+
   def initialize
     @board = Board.new
     @display = Display.new(@board)
@@ -11,18 +11,22 @@ class Game
     @player2 = HumanPlayer.new(:red, @display)
     @current_player = @player1
   end
-  
+
   def play
-    while true
+    until over?
       @current_player.make_move(@board)
       swap_turn!
     end
   end
-  
+
   private
-  
+
   def swap_turn!
     @current_player = @current_player == @player1 ? @player2 : @player1
+  end
+
+  def over?
+    @board.checkmate?(:blue) || @board.checkmate?(:red)
   end
 end
 

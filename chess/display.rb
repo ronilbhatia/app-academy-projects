@@ -13,7 +13,7 @@ class Display
     null: " ",
   }
   attr_reader :cursor, :board
-  
+
   def initialize(board)
     @board = board
     @cursor = Cursor.new([0,0], board)
@@ -21,7 +21,7 @@ class Display
 
   def render
     puts "\n"
-    puts "--------------------------------"
+    puts "---------------------------------"
     8.times do |i|
       symbol_arr = []
       @board.grid[i].each_with_index do |piece, j|
@@ -45,9 +45,9 @@ end
 if __FILE__ == $PROGRAM_NAME
   board = Board.new
   display = Display.new(board)
-  
-  dup = board.dup 
-  
+
+  dup = board.dup
+
   dis = Display.new(dup)
   # dup.move_piece([0,0], [4,0])
   # dis.render
@@ -59,11 +59,11 @@ if __FILE__ == $PROGRAM_NAME
   board.move_piece([1,4], [3,4])
   board.move_piece([6,7], [4,7])
   board.move_piece([0,3], [4,7])
-  board.move_piece([4,7], [5,6])
+  # board.move_piece([4,7], [4,7])
   # board.move_piece([6,4], [4,4])
-  display.render 
+  display.render
   # debugger
   p board[[7, 4]].valid_moves
   p board.checkmate?(:red)
-  # p board[[3,4]].moves 
+  # p board[[3,4]].moves
 end
