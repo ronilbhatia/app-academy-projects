@@ -1,0 +1,6 @@
+<% if flash[:errors] %>
+  <%= flash[:errors] %>
+<% end %>
+
+<h2>Edit <%= @band.name %></h2>
+<%= render 'form', action_url: band_url(@band), method_verb: 'patch' %>

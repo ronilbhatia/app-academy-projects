@@ -1,0 +1,11 @@
+<form action="<%= action_url %>" method="post">
+  <input type="hidden" name="_method" value="<%= method_name %>">
+  <%= auth_token %>
+  <label for="email"></label>Email:
+  <input type="text" name="user[email]" id="email">
+
+  <label for="password"></label>Password:
+  <input type="text" name="user[password]" id="password">
+
+  <input type="submit" value="<%= button_txt %>">
+</form>

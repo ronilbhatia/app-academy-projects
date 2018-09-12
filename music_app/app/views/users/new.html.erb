@@ -1,0 +1,7 @@
+<% if flash[:errors] %>
+  <%= flash[:errors] %>
+<% end %>
+
+<h2>Sign Up!</h2>
+
+<%= render 'form', method_name: 'post', button_txt: 'Sign Up', action_url: users_url %>

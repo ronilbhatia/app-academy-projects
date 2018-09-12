@@ -1,0 +1,7 @@
+<% if flash[:errors] %>
+  <%= flash[:errors] %>
+<% end %>
+
+<h2>Log In!</h2>
+
+<%= render 'users/form', method_name: 'post', button_txt: 'Log In', action_url: session_url %>

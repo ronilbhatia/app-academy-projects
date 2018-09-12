@@ -1,0 +1,6 @@
+<% if flash[:errors] %>
+  <%= flash[:errors] %>
+<% end %>
+
+<h2>New Band!</h2>
+<%= render 'form', action_url: bands_url, method_verb: 'post' %>
