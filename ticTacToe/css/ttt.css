@@ -1,0 +1,60 @@
+body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+}
+
+h1 {
+  width: 100%;
+  margin: 0 0 0 calc(100%/2 - 68px);
+  align-items: center;
+}
+
+h2 {
+  width: 100%;
+  margin: 0 0 0 calc(100%/2 - 68px);
+  align-items: center;
+}
+
+.ttt ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  width: 300px;
+}
+
+ul li {
+  box-sizing: border-box;
+  width: calc(33% - 10px);
+  height: 80px;
+  border: 2px black solid;
+  background: gray;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+ul li:hover {
+  background: yellow;
+}
+
+.click {
+  background-color: white;
+  font-size: 30px;
+  color: black;
+}
+
+ul li.click:hover {
+  background-color: white;
+}
+
+ul li.null:hover {
+  background-color: gray;
+}
+
+ul li.click.null {
+  background-color: white;
+}
