@@ -1,7 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> W7D2/master
+=======
+>>>>>>> W7D5-W8D1/master
 # README
 
 This README would normally document whatever steps are necessary to get the
@@ -26,6 +29,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 # App Academy Times
@@ -480,3 +484,5 @@ Use what you have learned to create a Fixed Header. When scrolling past the
 >>>>>>> W5D1/master
 =======
 >>>>>>> W7D2/master
+=======
+>>>>>>> W7D5-W8D1/master
